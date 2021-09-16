@@ -1,10 +1,16 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/01_Scene">Scene</router-link> |
-      <router-link to="/chapter2">Chapter2</router-link> |
-      <router-link to="/chapter3">Chapter3</router-link>
+    <div>
+      <b-navbar type="dark" variant="dark">
+        <b-navbar-nav>
+          <b-nav-item ><router-link to="/">Home</router-link></b-nav-item>
+          <b-nav-item ><router-link to="/01_Scene">1. Scene</router-link></b-nav-item>
+          <b-nav-item-dropdown text="2. Camera" right>
+            <b-dropdown-item href="#"><router-link to="/02.1_Camera">Camera Types</router-link> </b-dropdown-item>
+          </b-nav-item-dropdown>
+          <b-nav-item ><router-link to="/03_Light">3.Light</router-link> </b-nav-item>
+        </b-navbar-nav>
+      </b-navbar>
     </div>
     <router-view/>
   </div>

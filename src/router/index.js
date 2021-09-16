@@ -16,14 +16,14 @@ const routes = [
     component: () => import(/* webpackChunkName: "01_Scene" */ '../views/01_Scene.vue')
   },
   {
-    path: '/chapter2',
-    name: 'Chapter2',
-    component: () => import(/* webpackChunkName: "chapter2" */ '../views/Chapter2.vue')
+    path: '/02.1_Camera',
+    name: '02.1_Camera',
+    component: () => import(/* webpackChunkName: "02.1_Camera" */ '../views/02.1_Camera.vue')
   },
   {
-    path: '/chapter3',
-    name: 'Chapter3',
-    component: () => import(/* webpackChunkName: "chapter3" */ '../views/Chapter3.vue')
+    path: '/03_Light',
+    name: '03_Light',
+    component: () => import(/* webpackChunkName: "03_Light" */ '../views/03_Light.vue')
   }
 ]
 

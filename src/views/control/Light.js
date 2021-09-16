@@ -7,8 +7,7 @@ export const createScene = (canvas, engine) => {
     const scene = new BABYLON.Scene(engine);  
 
     // 1. Create your own meshes via "MeshBuilder"
-    const box = BABYLON.MeshBuilder.CreateBox("box", {});
-    box.position.y = 1;
+    BABYLON.MeshBuilder.CreateBox("box", {})
 
     // Our built-in 'sphere' shape. Params: name, subdivs, size, scene
     const sphere = BABYLON.Mesh.CreateSphere("sphere1", 16, 2, scene);
@@ -19,7 +18,7 @@ export const createScene = (canvas, engine) => {
     BABYLON.MeshBuilder.CreateGround("ground", {height: 100, width: 100, subdivisions: 4});
     
     // *** free camera (non-mesh)
-    const camera = new BABYLON.FreeCamera("FreeCamera", new BABYLON.Vector3(-5, 5, -15), scene);
+    const camera = new BABYLON.FreeCamera("FreeCamera", new BABYLON.Vector3(0, 5, -15), scene);
     // This targets the camera to scene origin
     camera.setTarget(BABYLON.Vector3.Zero());
     // This attaches the camera to the canvas

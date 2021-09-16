@@ -11,6 +11,8 @@
     "@babylonjs/core": "^4.2.0",
     "@babylonjs/inspector": "^4.2.0",
     "@babylonjs/loaders": "^4.2.0",
+    "bootstrap": "^5.1.1",
+    "bootstrap-vue": "^2.21.2",
     "core-js": "^3.6.5",
     "earcut": "^2.2.3",
     "vue": "^2.6.11",

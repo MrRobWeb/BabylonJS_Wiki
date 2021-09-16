@@ -10,6 +10,15 @@
       <li>ground: A ground is a specific mesh created via BABYLON.MeshBuilder.CreateGround</li>
       <li>camera: A camera creates a perspective on the scene. Thus, we can have a look to it. There are many types of camera that can be used on Babylon.</li>
       <li>light: Lights are used to produce the diffuse and specular color received by each pixel. There are many types of lights.</li>
+      <li>runRenderLoop: To make the scene actually visible on the screen, we need to render it using engine.runRenderLoop call: <br>
+          -> engine.runRenderLoop(function () {
+              scene.render();
+      });
+      </li>
+      <li>make app responsive: -> window.addEventListener("resize", function () {
+              engine.resize();
+      });
+      </li>
     </ul>
     
     <h2>Scene Explorer pane</h2>
