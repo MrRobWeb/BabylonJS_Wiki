@@ -2,8 +2,9 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/chapter1">Chapter1</router-link> |
-      <router-link to="/chapter2">Chapter2</router-link>
+      <router-link to="/scene">Scene</router-link> |
+      <router-link to="/chapter2">Chapter2</router-link> |
+      <router-link to="/chapter3">Chapter3</router-link>
     </div>
     <router-view/>
   </div>
@@ -16,6 +17,10 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+
+#ul {
+  text-align: left;
 }
 
 #nav {

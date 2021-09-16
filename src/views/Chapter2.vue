@@ -43,7 +43,6 @@ export default {
           palm.scaling.x = 0.03;
           palm.scaling.y = 0.03;
           palm.scaling.z = 0.03;
-
           const palm2 = palm.createInstance("Palm2");
           palm2.position.z = -12;
           palm2.position.x = 5;
@@ -52,10 +51,9 @@ export default {
         });
 
         const camera = new BABYLON.FreeCamera("FreeCamera", new BABYLON.Vector3(0, 5, -40), scene);
-        // This targets the camera to scene origin
         camera.setTarget(BABYLON.Vector3.Zero());
-        // This attaches the camera to the canvas
         camera.attachControl(canvas, true);
+
         BABYLON.MeshBuilder.CreateGround("ground", {height: 100, width: 100, subdivisions: 4});
 
         new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 1, 0));
@@ -63,14 +61,12 @@ export default {
         return scene;
     };
 
-    const scene = createScene(); //Call the createScene function
+    const scene = createScene(); 
 
-    // Register a render loop to repeatedly render the scene
     engine.runRenderLoop(function () {
             scene.render();
     });
 
-    // Watch for browser/canvas resize events
     window.addEventListener("resize", function () {
             engine.resize();
     });

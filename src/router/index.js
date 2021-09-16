@@ -11,14 +11,19 @@ const routes = [
     component: Home
   },
   {
-    path: '/chapter1',
-    name: 'Chapter1',
-    component: () => import(/* webpackChunkName: "chapter1" */ '../views/Chapter1.vue')
+    path: '/scene',
+    name: 'Scene',
+    component: () => import(/* webpackChunkName: "scene" */ '../views/Scene.vue')
   },
   {
     path: '/chapter2',
     name: 'Chapter2',
     component: () => import(/* webpackChunkName: "chapter2" */ '../views/Chapter2.vue')
+  },
+  {
+    path: '/chapter3',
+    name: 'Chapter3',
+    component: () => import(/* webpackChunkName: "chapter3" */ '../views/Chapter3.vue')
   }
 ]
 
