@@ -14,7 +14,7 @@
     
     <h2>Scene Explorer pane</h2>
     Babylon.js inspector is a visual debugging tool created to help pinpoint issues you may have with a scene.
-    https://doc.babylonjs.com/toolsAndResources/tools/inspector 
+    <a href="https://doc.babylonjs.com/toolsAndResources/tools/inspector">https://doc.babylonjs.com/toolsAndResources/tools/inspector</a> 
     <ul>
       <li>The scene explorer displays a hierarchical view of your scene. You can filter by name in the filter bar if you want to find a specific entry.</li>
       <li>By clicking on a line you will select it and the inspector will automatically update to reflect the properties of the selected item.</li>

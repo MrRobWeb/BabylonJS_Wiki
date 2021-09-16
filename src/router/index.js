@@ -11,9 +11,9 @@ const routes = [
     component: Home
   },
   {
-    path: '/scene',
-    name: 'Scene',
-    component: () => import(/* webpackChunkName: "scene" */ '../views/Scene.vue')
+    path: '/01_Scene',
+    name: '01_Scene',
+    component: () => import(/* webpackChunkName: "01_Scene" */ '../views/01_Scene.vue')
   },
   {
     path: '/chapter2',
