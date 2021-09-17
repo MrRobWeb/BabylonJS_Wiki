@@ -7,6 +7,8 @@
           <b-nav-item ><router-link to="/01_Scene">1. Scene</router-link></b-nav-item>
           <b-nav-item-dropdown text="2. Camera" right>
             <b-dropdown-item href="#"><router-link to="/02.1_Camera">Camera Types</router-link> </b-dropdown-item>
+            <b-dropdown-item href="#"><router-link to="/02.2_CameraCollisions">Cameras, Mesh Collisions, and Gravity</router-link> </b-dropdown-item>
+            <b-dropdown-item href="#"><router-link to="/02.3_MultiView">Multiviews</router-link> </b-dropdown-item>
           </b-nav-item-dropdown>
           <b-nav-item ><router-link to="/03_Light">3.Light</router-link> </b-nav-item>
         </b-navbar-nav>

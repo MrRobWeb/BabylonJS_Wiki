@@ -21,6 +21,16 @@ const routes = [
     component: () => import(/* webpackChunkName: "02.1_Camera" */ '../views/02.1_Camera.vue')
   },
   {
+    path: '/02.2_CameraCollisions',
+    name: '02.2_CameraCollisions',
+    component: () => import(/* webpackChunkName: "02.2_CameraCollisions" */ '../views/02.2_CameraCollisions.vue')
+  },
+  {
+    path: '/02.3_MultiView',
+    name: '02.3_MultiView',
+    component: () => import(/* webpackChunkName: "02.3_MultiView" */ '../views/02.3_MultiView.vue')
+  },
+  {
     path: '/03_Light',
     name: '03_Light',
     component: () => import(/* webpackChunkName: "03_Light" */ '../views/03_Light.vue')

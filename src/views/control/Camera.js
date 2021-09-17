@@ -2,6 +2,40 @@ import * as BABYLON from "@babylonjs/core";
 import "@babylonjs/loaders";
 import "@babylonjs/inspector";
 
+export const createMultiView = (canvas, scene) => {
+    
+    const universalCamera = new BABYLON.UniversalCamera("UniversalCamera", new BABYLON.Vector3(0, 2, -45), scene);
+    universalCamera.setTarget(BABYLON.Vector3.Zero());
+    universalCamera.attachControl(canvas, true);
+
+    const arcRotateCamera = new BABYLON.ArcRotateCamera("ArcRotateCamera", 1, 0.8, 10, new BABYLON.Vector3(0, 0, 0), scene);
+    arcRotateCamera.setPosition(new BABYLON.Vector3(0, 7, -30));
+    arcRotateCamera.attachControl(canvas, true);
+
+    // Two Viewports
+    universalCamera.viewport = new BABYLON.Viewport(0, 0.5, 1, 1);
+    arcRotateCamera.viewport = new BABYLON.Viewport(0, 0, 1, 0.5);
+
+    scene.activeCameras.push(universalCamera);
+    scene.activeCameras.push(arcRotateCamera);
+}
+
+export const setCameraCollision = (scene) => {
+    scene.gravity = new BABYLON.Vector3(0, -0.15, 0);
+    scene.activeCamera.applyGravity = true;
+    const assumedFramesPerSecond = 60;
+    const earthGravity = -9.81;
+    scene.gravity = new BABYLON.Vector3(0, earthGravity / assumedFramesPerSecond, 0);
+    //Set the ellipsoid around the camera (e.g. your player's size)
+    scene.activeCamera.ellipsoid = new BABYLON.Vector3(1, 1, 1); 
+    // Enable Collisions
+    scene.collisionsEnabled = true;
+    scene.activeCamera.checkCollisions = true; 
+    
+    // checkCollisions 
+    scene.meshes.forEach((mesh) => mesh.checkCollisions = true);
+}
+
 export const createCameras = (canvas, scene) => {
     
 
@@ -105,7 +139,7 @@ export const createScene = (engine) => {
     const sphere = BABYLON.Mesh.CreateSphere("sphere1", 16, 2, scene);
     sphere.position.y = 2;
     
-    BABYLON.MeshBuilder.CreateGround("ground", {height: 15, width: 15, subdivisions: 4});
+    BABYLON.MeshBuilder.CreateGround("ground", {height: 150, width: 150, subdivisions: 4});
 
     new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 1, 0));
 
