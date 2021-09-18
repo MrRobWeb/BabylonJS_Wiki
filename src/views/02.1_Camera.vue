@@ -57,7 +57,7 @@
 import * as BABYLON from "@babylonjs/core";
 import "@babylonjs/loaders";
 
-import {createScene, createCameras} from "./control/Camera.js";
+import {createScene, createCameras} from "./control/02_Camera.js";
 
 export default {
   name: 'Camera',

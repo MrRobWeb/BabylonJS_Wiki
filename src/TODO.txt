@@ -1,2 +1,3 @@
 https://doc.babylonjs.com/divingDeeper
-TODO: Scene -> switching Scene in one canvas element e.g. go through door in a house
+TODO: Scene     -> switching Scene in one canvas element e.g. go through door in a house
+TODO: 2D Camera -> https://playground.babylonjs.com/#L92PHY#36

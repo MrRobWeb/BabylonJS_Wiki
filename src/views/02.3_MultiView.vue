@@ -1,45 +1,55 @@
 <template>
   <div>
-    <h1>Camera Types</h1>
-    <b-button-group>
-      <b-button @click="scene.setActiveCameraByName('UniversalCamera')">Universal Camera</b-button>
-      <b-button @click="scene.setActiveCameraByName('ArcRotateCamera')">Arc Rotate Camera</b-button>
-      <b-button @click="scene.setActiveCameraByName('FollowCamera')">Follow Camera</b-button>
-      <b-button @click="scene.setActiveCameraByName('FlyCamera')">Fly Camera</b-button>
-    </b-button-group>
+    <h1>Multiview</h1>
     <canvas id="renderCanvas1"/>
     <hr>
-    <a href="https://doc.babylonjs.com/divingDeeper/cameras/camera_collisions">https://doc.babylonjs.com/divingDeeper/cameras/camera_collisions</a>
+    <a href="https://doc.babylonjs.com/divingDeeper/cameras/multiViewsPart2">https://doc.babylonjs.com/divingDeeper/cameras/multiViewsPart2</a>
+    <h2>Active Cameras</h2>
     <ul>
-      <li>To replicate FPS (First-Person Shooter) movement, we have to do 3 simple steps:</li>
+      <li>Babylon.js can render multiple views of the same scene.</li>
       <ul>
-        <li>Set gravity</li>
-        <li>Definition of an ellipsoid around our camera. This ellipsoid represents our player’s dimensions</li>
-        <li>Apply collision</li>
+        <li>scene.activeCameras.push(camera);</li>
+        <li>scene.activeCameras.push(camera2);</li>
       </ul>
     </ul>
-    <h2>Camera collision</h2>
-    <h3>Gravity</h3>
-    Babylon.js follows a much simpler gravitational model, however -- scene.gravity represents a constant velocity, 
-    not a force of acceleration, and it is measured in units/frame rather than meters/second. As each frame is rendered, 
-    the cameras you apply this gravity to will move by the vector's value along each axis (usually x and z are set to 0, 
-    but you can have "gravity" in any direction!), until a collision is detected.
+    <h2>Viewports</h2>
     <ul>
-      <li>Babylon.js Scenes have a gravity property that can be applied to any camera you've previously defined in your code.</li>
-      <li>This will move the camera along the direction and speed specified (a Vector3 object) unless the camera's ellipsoid (see #2 below) is colliding with another mesh in that direction (such as your ground mesh) with checkCollisions set to true.</li>
-    </ul>
-    <h3> Define an ellipsoid </h3>
-    <ul>
-      <li> The next important step is to define the ellipsoid around our camera. This ellipsoid represents our player’s dimensions: 
-          a collision event will be raised when a mesh comes in contact with this ellipsoid, preventing our camera from getting too close to this mesh:
-      </li>
-      <li>Think of this camera as one orbiting its target position, or more imaginatively as a satellite orbiting the earth. Its position relative to the target ("Earth") can be set by three parameters:</li>
+      <li>If you want to use many cameras, you will need to specify a viewport for each camera:</li>
       <ul>
-        <li>alpha (the longitudinal rotation, in radians),</li>
-        <li>beta (the latitudinal rotation, in radians), and</li>
-        <li>radius (the distance from the target).</li>
+        <li>camera.viewport = new BABYLON.Viewport(0.5, 0, 0.5, 1.0);</li>
+        <li>camera2.viewport = new BABYLON.Viewport(0, 0, 0.5, 1.0);</li>
+        <li>BABYLON.Viewport = function (x, y, width, height);</li>
+        <li>where x, y, are the lower lefthand corner of the viewport followed by its width and height. Values for x, y, width, and height are numbers between 0 and 1 representing the fraction of the screen width and height, respectively.</li>
       </ul>
-    </ul>    
+    </ul>
+    <h2>Layer Masks - Hide or make meshes visible</h2>
+    <p>
+      layerMask is a value that can be assigned to different objects (like meshes, cameras, layers, particle systems, etc) 
+      and is used to determine the visibility of this object from another one 
+      (for eg, if a mesh is visible from a camera or if a layer should be displayed after a given camera is processed).
+    </p>
+    <p>The only two things to understand with layerMask are that:</p>
+    <ul>
+        <li>it can be any number from 0 to 0xFFFFFFFF (or 4294967295, but it’s easier to write 0xFFFFFFFF)</li>
+        <li>when computing a visibility flag, two values of layerMask are ANDed and if the result is different from 0 the flag is true</li>
+    </ul>
+    <p>
+      So, for eg, if camera.layerMask = 35 and mesh.layerMask = 2, 35 & 2 == 2 != 0 so the mesh is visible from this camera. 
+      We often show these numbers in hexadecimal because doing the AND as a mental calculation is easier that way: 
+      35=0x23 and 2=0x02 and 35 & 2 == 0x23 & 0x02 and from this latter representation it’s easier to see that the result is 2 
+      (well, at least when you are a bit comfortable with hexadecimal!).
+    </p>
+    <h3>Default Layer mask and Usage in Babylon.js</h3>
+    <p>
+      In Babylon, by default all layerMask properties are 0x0FFFFFFF (for Camera, Mesh, Layer, …). So, when it comes to determine a visibility, 0x0FFFFFFF & 0x0FFFFFFF != 0 and everything is always visible (at least from the standpoint of the layerMask test).
+    </p>
+    <p>
+      As you can see, there are 4 bits not set by default in the layerMask (the leading 0 before the first F). 
+      It’s to ease the use of layerMask, as a common usage is to make some meshes hidden from a camera. To achieve that, you need 
+      to set a layerMask on the meshes so that the AND operation with the layerMask of the camera (0x0FFFFFFF by default) is 0: 
+      you can use 0x10000000, 0x20000000, 0x40000000 or 0x80000000. Now you see why showing these numbers in hexadecimal helps: 
+      it’s a lot easier to see that 0x10000000 & 0x0FFFFFFF = 0 than 268435456 & 268435455!
+    </p>
   </div>
 </template> 
 
@@ -47,7 +57,7 @@
 import * as BABYLON from "@babylonjs/core";
 import "@babylonjs/loaders";
 
-import {createScene, setCameraCollision, createMultiView} from "./control/Camera.js";
+import {createScene, setCameraCollision, createMultiView, addLayerMaskCamera} from "./control/02_Camera.js";
 
 export default {
   name: 'Camera',
@@ -69,6 +79,7 @@ export default {
     const scene = createScene(engine); 
 
     createMultiView(canvas, scene);
+    addLayerMaskCamera(canvas, scene);
     setCameraCollision(scene);
 
     engine.runRenderLoop(function () {
@@ -94,6 +105,10 @@ export default {
 }
 
 li {
+    text-align: left;
+}
+
+p {
     text-align: left;
 }
 </style>

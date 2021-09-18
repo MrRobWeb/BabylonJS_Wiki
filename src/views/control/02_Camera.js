@@ -2,14 +2,73 @@ import * as BABYLON from "@babylonjs/core";
 import "@babylonjs/loaders";
 import "@babylonjs/inspector";
 
+export const addLayerMaskCamera = (canvas, scene) => {
+    const layerMaskCamera = new BABYLON.FreeCamera("GunSightCamera", new BABYLON.Vector3(0, 10, -50), scene);  
+    layerMaskCamera.setTarget(BABYLON.Vector3.Zero());    
+    layerMaskCamera.attachControl(canvas, true);          
+    layerMaskCamera.mode = BABYLON.Camera.ORTHOGRAPHIC_CAMERA;
+    layerMaskCamera.layerMask = 0x20000000;
+    layerMaskCamera.viewport = new BABYLON.Viewport(0, 0, 1, 0.5);
+    scene.activeCameras.push(layerMaskCamera);
+    
+    let meshes = [];
+    let h = 250;
+    let w = 250;
+    
+    let y = BABYLON.Mesh.CreateBox("y", h * .2, scene);
+    y.scaling = new BABYLON.Vector3(0.05, 1, 1);
+    y.position = new BABYLON.Vector3(0, 0, 0);
+    meshes.push(y);
+    
+    let x = BABYLON.Mesh.CreateBox("x", h * .2, scene);
+    x.scaling = new BABYLON.Vector3(1, 0.05, 1);
+    x.position = new BABYLON.Vector3(0, 0, 0);
+    meshes.push(x);
+        
+    let lineTop = BABYLON.Mesh.CreateBox("lineTop", w * .8, scene);
+    lineTop.scaling = new BABYLON.Vector3(1, 0.005, 1);
+    lineTop.position = new BABYLON.Vector3(0, h * 0.5, 0);
+    meshes.push(lineTop);
+    
+    let lineBottom = BABYLON.Mesh.CreateBox("lineBottom", w * .8, scene);
+    lineBottom.scaling = new BABYLON.Vector3(1, 0.005, 1);
+    lineBottom.position = new BABYLON.Vector3(0, h * -0.5, 0);
+    meshes.push(lineBottom);
+    
+    let lineLeft = BABYLON.Mesh.CreateBox("lineLeft", h, scene);
+    lineLeft.scaling = new BABYLON.Vector3(0.010, 1,  1);
+    lineLeft.position = new BABYLON.Vector3(w * -.4, 0, 0);
+    meshes.push(lineLeft);
+    
+    let lineRight = BABYLON.Mesh.CreateBox("lineRight", h, scene);
+    lineRight.scaling = new BABYLON.Vector3(0.010, 1,  1);
+    lineRight.position = new BABYLON.Vector3(w * .4, 0, 0);
+    meshes.push(lineRight);
+    
+    let gunSight = BABYLON.Mesh.MergeMeshes(meshes);
+    gunSight.name = "gunSight";
+    gunSight.layerMask = 0x20000000;
+    gunSight.freezeWorldMatrix();
+    
+    let mat = new BABYLON.StandardMaterial("emissive mat",scene);
+    mat.checkReadyOnlyOnce = true;
+    mat.emissiveColor = new BABYLON.Color3(0,1,0);
+    
+    gunSight.material = mat;
+
+    const box = BABYLON.MeshBuilder.CreateBox("box", {});
+    box.position.y = 1;
+    box.layerMask = 0x20000000;
+}
+
 export const createMultiView = (canvas, scene) => {
     
-    const universalCamera = new BABYLON.UniversalCamera("UniversalCamera", new BABYLON.Vector3(0, 2, -45), scene);
+    const universalCamera = new BABYLON.UniversalCamera("UniversalCamera", new BABYLON.Vector3(0, 15, -45), scene);
     universalCamera.setTarget(BABYLON.Vector3.Zero());
     universalCamera.attachControl(canvas, true);
 
     const arcRotateCamera = new BABYLON.ArcRotateCamera("ArcRotateCamera", 1, 0.8, 10, new BABYLON.Vector3(0, 0, 0), scene);
-    arcRotateCamera.setPosition(new BABYLON.Vector3(0, 7, -30));
+    arcRotateCamera.setPosition(new BABYLON.Vector3(0, 17, -30));
     arcRotateCamera.attachControl(canvas, true);
 
     // Two Viewports
@@ -18,7 +77,12 @@ export const createMultiView = (canvas, scene) => {
 
     scene.activeCameras.push(universalCamera);
     scene.activeCameras.push(arcRotateCamera);
+
+	
+
 }
+
+
 
 export const setCameraCollision = (scene) => {
     scene.gravity = new BABYLON.Vector3(0, -0.15, 0);

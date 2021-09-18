@@ -31,9 +31,9 @@ const routes = [
     component: () => import(/* webpackChunkName: "02.3_MultiView" */ '../views/02.3_MultiView.vue')
   },
   {
-    path: '/03_Light',
-    name: '03_Light',
-    component: () => import(/* webpackChunkName: "03_Light" */ '../views/03_Light.vue')
+    path: '/03.1_Light',
+    name: '03.1_Light',
+    component: () => import(/* webpackChunkName: "03.1_Light" */ '../views/03.1_Light.vue')
   }
 ]
 
