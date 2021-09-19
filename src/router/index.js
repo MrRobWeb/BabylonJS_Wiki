@@ -31,6 +31,11 @@ const routes = [
     component: () => import(/* webpackChunkName: "02.3_MultiView" */ '../views/02.3_MultiView.vue')
   },
   {
+    path: '/02.4_CameraInputs',
+    name: '02.4_CameraInputs',
+    component: () => import(/* webpackChunkName: "02.4_CameraInputs" */ '../views/02.4_CameraInputs.vue')
+  },
+  {
     path: '/03.1_Light',
     name: '03.1_Light',
     component: () => import(/* webpackChunkName: "03.1_Light" */ '../views/03.1_Light.vue')

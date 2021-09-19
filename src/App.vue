@@ -9,6 +9,7 @@
             <b-dropdown-item href="#"><router-link to="/02.1_Camera">Camera Types</router-link> </b-dropdown-item>
             <b-dropdown-item href="#"><router-link to="/02.2_CameraCollisions">Cameras, Mesh Collisions, and Gravity</router-link> </b-dropdown-item>
             <b-dropdown-item href="#"><router-link to="/02.3_MultiView">Multiviews & Layer Masks</router-link> </b-dropdown-item>
+            <b-dropdown-item href="#"><router-link to="/02.4_CameraInputs">Customizing Camera Inputs</router-link> </b-dropdown-item>
           </b-nav-item-dropdown>
           <b-nav-item-dropdown text="3. Light" right>
             <b-dropdown-item href="#"><router-link to="/03.1_Light">Light Types</router-link> </b-dropdown-item>

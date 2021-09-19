@@ -2,6 +2,106 @@ import * as BABYLON from "@babylonjs/core";
 import "@babylonjs/loaders";
 import "@babylonjs/inspector";
 
+
+export const manageInputs = (canvas, scene) => {
+    // Let's remove default keyboard:
+    scene.activeCamera.inputs.removeByType("FreeCameraKeyboardMoveInput");
+
+    // Create our own manager:
+    var FreeCameraKeyboardRotateInput = function () {
+            this._keys = [];
+            this.keysLeft = [37];
+            this.keysRight = [39];
+            this.sensibility = 0.01;
+    }
+
+    // Hooking keyboard events
+    FreeCameraKeyboardRotateInput.prototype.attachControl = function (noPreventDefault) {
+        var _this = this;
+        var engine = this.camera.getEngine();
+            var element = engine.getInputElement();
+        if (!this._onKeyDown) {
+            element.tabIndex = 1;
+            this._onKeyDown = function (evt) {
+                if (_this.keysLeft.indexOf(evt.keyCode) !== -1 ||
+                    _this.keysRight.indexOf(evt.keyCode) !== -1) {
+                    var index = _this._keys.indexOf(evt.keyCode);
+                    if (index === -1) {
+                        _this._keys.push(evt.keyCode);
+                    }
+                    if (!noPreventDefault) {
+                        evt.preventDefault();
+                    }
+                }
+            };
+            this._onKeyUp = function (evt) {
+                if (_this.keysLeft.indexOf(evt.keyCode) !== -1 ||
+                    _this.keysRight.indexOf(evt.keyCode) !== -1) {
+                    var index = _this._keys.indexOf(evt.keyCode);
+                    if (index >= 0) {
+                        _this._keys.splice(index, 1);
+                    }
+                    if (!noPreventDefault) {
+                        evt.preventDefault();
+                    }
+                }
+            };
+
+            element.addEventListener("keydown", this._onKeyDown, false);
+            element.addEventListener("keyup", this._onKeyUp, false);
+            BABYLON.Tools.RegisterTopRootEvents(canvas, [
+                { name: "blur", handler: this._onLostFocus }
+            ]);
+        }
+    };
+
+    // Unhook
+    FreeCameraKeyboardRotateInput.prototype.detachControl = function () {
+        if (this._onKeyDown) {
+            var engine = this.camera.getEngine();
+            var element = engine.getInputElement();
+            element.removeEventListener("keydown", this._onKeyDown);
+            element.removeEventListener("keyup", this._onKeyUp);
+            BABYLON.Tools.UnregisterTopRootEvents(canvas, [
+                { name: "blur", handler: this._onLostFocus }
+            ]);
+            this._keys = [];
+            this._onKeyDown = null;
+            this._onKeyUp = null;
+        }
+    };
+
+    // This function is called by the system on every frame
+    FreeCameraKeyboardRotateInput.prototype.checkInputs = function () {
+        if (this._onKeyDown) {
+            var camera = this.camera;
+            // Keyboard
+            for (var index = 0; index < this._keys.length; index++) {
+                var keyCode = this._keys[index];
+                if (this.keysLeft.indexOf(keyCode) !== -1) {
+                    camera.cameraRotation.y += this.sensibility;
+                }
+                else if (this.keysRight.indexOf(keyCode) !== -1) {
+                    camera.cameraRotation.y -= this.sensibility;
+                }
+            }
+        }
+    };
+    FreeCameraKeyboardRotateInput.prototype.getTypeName = function () {
+        return "FreeCameraKeyboardRotateInput";
+    };
+    FreeCameraKeyboardRotateInput.prototype._onLostFocus = function (e) {
+        console.log(e);
+        this._keys = [];
+    };
+    FreeCameraKeyboardRotateInput.prototype.getSimpleName = function () {
+        return "keyboardRotate";
+    };
+
+    // Connect to camera:
+    scene.activeCamera.inputs.add(new FreeCameraKeyboardRotateInput());
+}
+
 export const addLayerMaskCamera = (canvas, scene) => {
     const layerMaskCamera = new BABYLON.FreeCamera("GunSightCamera", new BABYLON.Vector3(0, 10, -50), scene);  
     layerMaskCamera.setTarget(BABYLON.Vector3.Zero());    
