@@ -29,7 +29,7 @@
         <li>alpha (the longitudinal rotation, in radians),</li>
         <li>beta (the latitudinal rotation, in radians), and</li>
         <li>radius (the distance from the target).</li>
-        <img src="../assets/camalphabeta.jpg">
+        <img src="../../assets/camalphabeta.jpg">
       </ul>
     </ul>
     
@@ -57,7 +57,7 @@
 import * as BABYLON from "@babylonjs/core";
 import "@babylonjs/loaders";
 
-import {createScene, createCameras} from "./control/02_Camera.js";
+import {createScene, createCameras} from "../control/02_Camera.js";
 
 export default {
   name: 'Camera',

@@ -14,7 +14,7 @@
 import * as BABYLON from "@babylonjs/core";
 import "@babylonjs/loaders";
 
-import {createScene} from "./control/Scene.js"
+import {createScene} from "../control/01_Scene.js"
 
 export default {
   name: 'GUI',

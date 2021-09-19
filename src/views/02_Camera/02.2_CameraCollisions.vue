@@ -47,7 +47,7 @@
 import * as BABYLON from "@babylonjs/core";
 import "@babylonjs/loaders";
 
-import {createScene, createCameras, setCameraCollision} from "./control/02_Camera.js";
+import {createScene, createCameras, setCameraCollision} from "../control/02_Camera.js";
 
 export default {
   name: 'Camera',

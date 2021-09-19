@@ -7,22 +7,32 @@
       <b-button @click="scene.getLightByName('SpotLight').setEnabled(!scene.getLightByName('SpotLight').isEnabled())">SpotLight</b-button>
     </b-button-group>
     <hr>
-    Spot Light range
+    Spot Light Intensity
     <br>
     <b-button-group>
-      <b-button @click="scene.getLightByName('SpotLight').range=200">+</b-button>
-      <b-button @click="scene.getLightByName('SpotLight').range=50">-</b-button>
+      <b-button @click="scene.getLightByName('SpotLight').intensity +=0.2">+</b-button>
+      <b-button @click="scene.getLightByName('SpotLight').intensity -=0.2">-</b-button>
+    </b-button-group>
+    <hr>
+    Include, exclude meshes from light
+    <br>
+    <b-button-group>
+      <b-button @click="scene.getLightByName('HemisphericLight').excludedMeshes.push(scene.meshes[0])">Off - Iluminate Box</b-button>
+      <b-button @click="scene.getLightByName('HemisphericLight').includedOnlyMeshes.push(scene.meshes[1])">On - Iluminate Sphere</b-button>
     </b-button-group>
     <canvas id="renderCanvas1"/>
     <h1>Light</h1>
-    <p>Lights are used, as you would expect, to affect how meshes are seen, in terms of both illumination and colour. 
+    <p>
+      Lights are used, as you would expect, to affect how meshes are seen, in terms of both illumination and colour. 
       All meshes allow light to pass through them unless shadow generation is activated. 
-      The default number of lights allowed is four but this can be increased.</p>
+      The default number of lights allowed is four but this can be increased: 
+      var material = new BABYLON.StandardMaterial("mat", scene);
+      material.maxSimultaneousLights = 6;
+    </p>
     <h2></h2>
     <ul>
       <li></li>
     </ul>
-    
   </div>
 </template>
 
@@ -30,7 +40,7 @@
 import * as BABYLON from "@babylonjs/core";
 import "@babylonjs/loaders";
 
-import {createScene, createLights} from "./control/03_Light.js"
+import {createScene, createLights} from "../control/03_Light.js"
 
 export default {
   name: 'Light',

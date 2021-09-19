@@ -57,7 +57,7 @@
 import * as BABYLON from "@babylonjs/core";
 import "@babylonjs/loaders";
 
-import {createScene, setCameraCollision, createMultiView, addLayerMaskCamera} from "./control/02_Camera.js";
+import {createScene, setCameraCollision, createMultiView, addLayerMaskCamera} from "../control/02_Camera.js";
 
 export default {
   name: 'Camera',

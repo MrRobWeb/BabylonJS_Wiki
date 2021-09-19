@@ -14,6 +14,9 @@
           <b-nav-item-dropdown text="3. Light" right>
             <b-dropdown-item href="#"><router-link to="/03.1_Light">Light Types</router-link> </b-dropdown-item>
           </b-nav-item-dropdown>
+          <b-nav-item-dropdown text="4. GUI and 2D Layer" right>
+            <b-dropdown-item href="#"><router-link to="/04.1_GUI">Advanced Dynamic Texture</router-link> </b-dropdown-item>
+          </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-navbar>
     </div>
