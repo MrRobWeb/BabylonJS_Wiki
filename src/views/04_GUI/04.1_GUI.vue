@@ -14,7 +14,7 @@
 import * as BABYLON from "@babylonjs/core";
 import "@babylonjs/loaders";
 
-import {createScene} from "../control/01_Scene.js"
+import {createScene, createGUI} from "../control/04_GUI.js"
 
 export default {
   name: 'GUI',
@@ -22,18 +22,18 @@ export default {
     
   },
   mounted(){
-    const canvas = document.getElementById("renderCanvas1");  // Get the canvas element
-    const engine = new BABYLON.Engine(canvas, true);          // Generate the BABYLON 3D engine
+    const canvas = document.getElementById("renderCanvas1");  
+    const engine = new BABYLON.Engine(canvas, true);          
 
-    //Call the createScene function
     const scene = createScene(canvas, engine); 
+    createGUI(scene);
 
-    // Register a render loop to repeatedly render the scene
+    
+
     engine.runRenderLoop(function () {
             scene.render();
     });
 
-    // Watch for browser/canvas resize events
     window.addEventListener("resize", function () {
             engine.resize();
     });
